@@ -39,6 +39,8 @@ class MainActivity : ComponentActivity() {
             JetNoteAppWMTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()
                 ){ innerPadding ->
+
+                    //TODO togliere di qua notes e aggiungerlo a un ViewModel
                     val notes = remember { mutableStateListOf<Notes>()
                         //aggiungo le pre note scritte
                         .apply { addAll(NotesDataSource().loadNotes())
