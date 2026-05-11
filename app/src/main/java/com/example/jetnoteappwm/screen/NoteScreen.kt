@@ -2,19 +2,13 @@ package com.example.jetnoteappwm.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Notifications
-import androidx.compose.material3.Card
-import androidx.compose.material3.CheckboxDefaults.colors
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -32,10 +26,16 @@ import androidx.compose.ui.unit.dp
 import com.example.jetnoteappwm.R
 import com.example.jetnoteappwm.components.NoteButton
 import com.example.jetnoteappwm.components.NoteInputText
+import com.example.jetnoteappwm.model.Notes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoteScreen(){
+fun NoteScreen(
+    modifier: Modifier = Modifier,
+    notes: List<Notes>,
+    onAddNote: (Notes) -> Unit,
+    onRemoveNote: (Notes) -> Unit
+){
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
@@ -81,7 +81,13 @@ fun NoteScreen(){
             NoteButton(
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                 text = "Save",
-                onClick = { /*TODO*/ })
+                onClick = {
+                    if (title.isNotEmpty() && description.isNotEmpty())
+                        //save/add to list
+                        //and after clear text
+                        title = ""
+                        description = ""
+                })
         }
     }
 }
@@ -89,5 +95,5 @@ fun NoteScreen(){
 @Preview(showBackground = true)
 @Composable
 fun NoteScreenPreview(){
-    NoteScreen()
+    NoteScreen(notes = emptyList(), onAddNote = {}, onRemoveNote = {})
 }

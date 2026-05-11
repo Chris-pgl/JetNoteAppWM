@@ -20,8 +20,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetNoteAppWMTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding -> {}
-                    NoteScreen()
+                Scaffold(modifier = Modifier.fillMaxSize()
+                ){ innerPadding ->
+                    NoteScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        notes = emptyList(),
+                        onAddNote = {},
+                        onRemoveNote = {})
 
                 }
             }
@@ -35,6 +40,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     JetNoteAppWMTheme {
-        NoteScreen()
+        NoteScreen(notes = emptyList(), onAddNote = {}, onRemoveNote = {})
     }
 }
