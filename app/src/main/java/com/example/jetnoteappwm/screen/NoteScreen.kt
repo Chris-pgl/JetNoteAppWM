@@ -147,7 +147,9 @@ fun NoteRow(
         color = Color(0xFF506D79),
         shadowElevation = 7.dp
     ){
-        Column(modifier = Modifier.clickable { }.padding(horizontal = 14.dp, vertical = 6.dp)
+        Column(modifier
+            .clickable { onNoteClicked(note) }
+            .padding(horizontal = 14.dp, vertical = 6.dp)
         ){
             Text(text = note.title, style = MaterialTheme.typography.titleMedium)
             Text(text = note.description, style = MaterialTheme.typography.titleSmall)
