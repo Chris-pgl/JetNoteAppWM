@@ -17,6 +17,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -36,11 +39,19 @@ class MainActivity : ComponentActivity() {
             JetNoteAppWMTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()
                 ){ innerPadding ->
+                    val notes = remember { mutableStateListOf<Notes>()
+                        //aggiungo le pre note scritte
+                        .apply { addAll(NotesDataSource().loadNotes())
+                    } }
                     NoteScreen(
                         modifier = Modifier.padding(innerPadding),
-                        notes = NotesDataSource().loadNotes(),
-                        onAddNote = {},
-                        onRemoveNote = {})
+                        notes = notes,
+                        onAddNote = {
+                            notes.add(it)
+                        },
+                        onRemoveNote = {
+                            notes.remove(it)
+                        })
 
                 }
             }

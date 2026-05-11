@@ -1,6 +1,7 @@
 package com.example.jetnoteappwm.screen
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -34,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -66,19 +68,23 @@ fun NoteScreen(
             colors = TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = Color(0xFF9FC2E3)
             ))
-
+        // context per Toast message
+        val context = LocalContext.current
         //TextField
-        Column(modifier = Modifier.fillMaxWidth().padding(5.dp),
+        Column(modifier = modifier.fillMaxWidth().padding(5.dp),
             horizontalAlignment = Alignment.CenterHorizontally,) {
             NoteInputText(
                 modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
                 text = title,
-                label = "Title",
+                label = "Titolo",
                 maxLine = 1,
                 onTextChange = {
+                    /*
                     if ( it.all {
                         char -> char.isLetter() || char.isWhitespace()
                     }) title = it
+                }*/
+                    title = it
                 }
             )
 
@@ -87,12 +93,15 @@ fun NoteScreen(
             NoteInputText(
                 modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
                 text = description,
-                label = "Description",
+                label = "Descrizione",
                 maxLine = 1,
                 onTextChange = {
+                    /*
                     if ( it.all {
                                 char -> char.isLetter() || char.isWhitespace()
                         }) description = it
+                }*/
+                    description = it
                 }
             )
 
@@ -103,9 +112,11 @@ fun NoteScreen(
                 onClick = {
                     if (title.isNotEmpty() && description.isNotEmpty()) {
                         //save/add to list
+                        onAddNote(Notes(title = title, description = description))
                         //and after clear text
                         title = ""
                         description = ""
+                        Toast.makeText(context, "Nota aggiunta", Toast.LENGTH_SHORT).show()
                     }
                 }
             )
@@ -116,7 +127,7 @@ fun NoteScreen(
             items(notes){ note ->
                 NoteRow(note = note,
                     onNoteClicked =
-                        { }
+                        { onRemoveNote(note) }
                 )
             }
         }
@@ -133,7 +144,7 @@ fun NoteRow(
     Surface(modifier.padding(4.dp)
         .clip(RoundedCornerShape(topEnd = 33.dp, bottomStart = 33.dp))
         .fillMaxWidth(),
-        color = Color(0xFFB8D9E7),
+        color = Color(0xFF506D79),
         shadowElevation = 7.dp
     ){
         Column(modifier = Modifier.clickable { }.padding(horizontal = 14.dp, vertical = 6.dp)

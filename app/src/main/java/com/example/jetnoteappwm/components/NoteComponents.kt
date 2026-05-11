@@ -59,7 +59,7 @@ fun NoteButton(
     onClick: () -> Unit,
     enabled: Boolean = true
 ){
-    Button(onClick = {onClick},
+    Button(onClick = {onClick()},
         shape = CircleShape,
         enabled = enabled,
         modifier = modifier) {
