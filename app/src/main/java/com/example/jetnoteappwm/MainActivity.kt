@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.jetnoteappwm.screen.NoteScreen
 import com.example.jetnoteappwm.ui.theme.JetNoteAppWMTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +20,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetNoteAppWMTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding -> {}
+                    NoteScreen()
+
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     JetNoteAppWMTheme {
-        Greeting("Android")
+        NoteScreen()
     }
 }
