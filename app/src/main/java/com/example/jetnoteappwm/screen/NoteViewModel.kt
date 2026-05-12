@@ -13,15 +13,14 @@ class NoteViewModel : ViewModel() {
     }
 
 
-    fun addNote(notes: Notes){
-        noteList.add(notes)
+    fun addNote(note: Notes){
+        note    }
+
+    fun removeNote(note: Notes){
+        noteList.remove(note)
     }
 
-    fun removeNote(notes: Notes){
-        noteList.remove(notes)
-    }
-
-    fun getAllnotes(): List<Notes>{
+    fun getAllNotes(): List<Notes>{
         return noteList
     }
 
