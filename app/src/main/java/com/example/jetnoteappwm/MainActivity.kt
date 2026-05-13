@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -33,15 +34,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
 
-                    //TODO togliere di qua notes e aggiungerlo a un ViewModel
-                    val notes = remember {
-                        mutableStateListOf<Notes>()
-                            //aggiungo le pre note scritte
-                            .apply {
-                                addAll(NotesDataSource().loadNotes())
-                            }
-                    }
-                    //passo il viewModel
+                    //passo il viewModel in due modi diversi
+                    //val noteViewModel = viewModel<NoteViewModel>()
                     val noteViewModel: NoteViewModel by viewModels()
                     NotesApp(modifier = Modifier.padding(innerPadding), noteViewModel)
                 }
@@ -53,9 +47,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NotesApp(
-    modifier: Modifier = Modifier, noteViewModel: NoteViewModel = viewModel()
+    modifier: Modifier = Modifier, noteViewModel: NoteViewModel
 ) {
-    val notesList = noteViewModel.getAllNotes()
+    val notesList = noteViewModel.noteList.collectAsState().value
 
     NoteScreen(
         notes = notesList,
