@@ -33,7 +33,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-
+                    //TODO finish app for now.
+                    //TODO for next implement
+                    //TODO - oldpress on note for update
+                    //TODO - swipe for delete note
                     //passo il viewModel in due modi diversi
                     //val noteViewModel = viewModel<NoteViewModel>()
                     val noteViewModel: NoteViewModel by viewModels()
